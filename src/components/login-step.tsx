@@ -1,19 +1,23 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function LoginStep({
   onValidityChange: setFormValidity,
+  defaultValues,
 }: {
   onValidityChange: (inValid: boolean) => void;
+  defaultValues: undefined | FormData;
 }) {
   const [username, setUsername] = useState({ valid: false, untouched: true });
   const [password, setPassword] = useState({
     valid: false,
-    value: "",
+    value: defaultValues ? (defaultValues.get("password") as string) : "",
     untouched: true,
   });
   const [confirmPassword, setConfirmPassword] = useState({
     valid: false,
-    value: "",
+    value: defaultValues
+      ? (defaultValues.get("confirm-password") as string)
+      : "",
     untouched: true,
   });
 
@@ -60,18 +64,21 @@ export default function LoginStep({
   };
 
   return (
-    <form id="login-step">
+    <form id="login">
       <h2>Login information</h2>
       <ul>
-        <li>
+        <li className="text-input">
           <label htmlFor="username">* Username:</label>
           <div>
             <input
               type="text"
               id="username"
               name="username"
+              defaultValue={
+                defaultValues ? (defaultValues.get("username") as string) : ""
+              }
               required
-              pattern="^[a-z]+$"
+              pattern="^[^A-Z]*$"
               className={
                 username.untouched || username.valid ? "" : "invalid-input"
               }
@@ -96,7 +103,7 @@ export default function LoginStep({
           </div>
         </li>
         <br />
-        <li>
+        <li className="text-input">
           <label htmlFor="password">* Password:</label>
           <div>
             <input
@@ -132,7 +139,7 @@ export default function LoginStep({
           </div>
         </li>
         <br />
-        <li>
+        <li className="text-input">
           <label htmlFor="confirm-password">* Confirm password:</label>
           <div>
             <input

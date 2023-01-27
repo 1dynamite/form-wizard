@@ -5,9 +5,14 @@ body {
 }
 
 input,
+select,
 button {
   font-family: inherit;
   font-size: 100%;
+}
+
+select {
+  background-color: white;
 }
 
 button {
@@ -28,33 +33,33 @@ button:disabled:hover {
   cursor: default;
 }
 
-input {
+.text-input input:not([type="checkbox"]),
+select {
   color: inherit;
   padding: 0.3rem 0.5rem;
   border: none;
-  outline: 1px solid #4b5563;
+  outline: 1px solid #9ca3af;
   border-radius: 0.125rem;
 }
 
-input:focus {
+.text-input input:not([type="checkbox"]):focus,
+select:focus {
   outline: 2px solid #334155;
 }
 
-/* input:invalid {
-  outline-color: red;
-} */
-
-.invalid-input {
-  outline-color: #ef4444;
+.text-input input:not([type="checkbox"]).invalid-input,
+select.invalid-input {
+  outline: 1px solid #ef4444;
 }
 
-.invalid-input:focus {
-  outline-color: #ef4444;
+.text-input input:not([type="checkbox"]).invalid-input:focus,
+select.invalid-input:focus {
+  outline: 2px solid #ef4444;
 }
 
-label {
+.text-input > label {
   display: inline-block;
-  width: 12rem;
+  width: 15rem;
   text-align: right;
   font-weight: bolder;
   margin-right: 1rem;
@@ -67,6 +72,10 @@ ul {
 
 form li {
   display: flex;
+}
+
+form {
+  overflow: auto;
 }
 
 .app {
@@ -82,8 +91,11 @@ form li {
 .wizard-container {
   background-color: #f8fafc;
   border-radius: 0.5rem;
-  width: 42rem;
+  width: 45rem;
   box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  max-height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 .title-bar {
@@ -151,10 +163,105 @@ form li {
   padding-right: 1rem;
 }
 
-label ~ div {
+.text-input > div {
   width: 29rem;
 }
 
 h2 {
   text-align: center;
+}
+
+input[type="radio"] {
+  visibility: hidden;
+  position: absolute;
+}
+
+form[id="subscription"] label {
+  background-color: #e2e8f0;
+  width: 6rem;
+  height: 6rem;
+  border-radius: 0.25rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  border: 1px solid #f1f5f9;
+  font-size: larger;
+}
+
+form[id="subscription"] .radio-checked {
+  background-color: #334155;
+  color: white;
+}
+
+form[id="subscription"] ul {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+form[id="credit-card"] > div {
+  display: flex;
+  justify-content: center;
+  padding: 1rem;
+  padding-bottom: 2rem;
+  overflow: hidden;
+}
+
+.cleave {
+  padding: 1rem;
+  font-size: larger;
+  border: none;
+  border-radius: 0.25rem;
+  width: 17rem;
+  box-sizing: border-box;
+}
+
+#card-field {
+  width: 17rem;
+  white-space: nowrap;
+}
+
+.valid-input:focus {
+  outline: 2px solid #334155;
+}
+
+.valid-input {
+  outline: 1px solid #9ca3af;
+}
+
+.cleave.invalid-input {
+  outline: 1px solid #ef4444;
+}
+
+.cleave.invalid-input:focus {
+  outline: 2px solid #ef4444;
+}
+
+form[id="user-consent"] ul:last-child {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* form[id="user-consent"] ul:last-child > li {
+} */
+
+form[id="user-consent"] ul:last-child > span {
+  font-size: 0.9rem;
+  color: #6b7280;
+}
+
+h3 {
+  text-align: center;
+}
+
+.text-data span {
+  flex: 1 1 0;
+}
+
+.text-data span:first-child {
+  text-align: right;
+  margin-right: 1rem;
+  font-weight: bold;
 }
