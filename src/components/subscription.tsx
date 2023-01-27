@@ -2,14 +2,10 @@ import { useState } from "react";
 
 export default function SubscriptionStep({
   onValidityChange: setFormValidity,
-  defaultValues,
 }: {
   onValidityChange: (inValid: boolean) => void;
-  defaultValues: undefined | FormData;
 }) {
-  const [checkedOption, setCheckedOption] = useState(
-    defaultValues ? (defaultValues.get("subscription") as string) : ""
-  );
+  const [checkedOption, setCheckedOption] = useState("");
   return (
     <form id="subscription">
       <h2>Choose subscription</h2>
@@ -26,7 +22,6 @@ export default function SubscriptionStep({
             id="free"
             name="subscription"
             value="free"
-            checked={checkedOption === "free"}
             onChange={(e) => {
               setCheckedOption(e.target.value);
               setFormValidity(true);
@@ -45,7 +40,6 @@ export default function SubscriptionStep({
             id="monthly"
             name="subscription"
             value="monthly"
-            checked={checkedOption === "monthly"}
             onChange={(e) => {
               setCheckedOption(e.target.value);
               setFormValidity(true);
@@ -64,7 +58,6 @@ export default function SubscriptionStep({
             id="yearly"
             name="subscription"
             value="yearly"
-            checked={checkedOption === "yearly"}
             onChange={(e) => {
               setCheckedOption(e.target.value);
               setFormValidity(true);

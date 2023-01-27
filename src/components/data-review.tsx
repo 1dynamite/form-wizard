@@ -4,7 +4,7 @@ export default function DataReview({ formValues }: { formValues: FormData[] }) {
       <h2>Review your data</h2>
 
       <ul style={{ paddingTop: "0" }}>
-        <h3>Login information</h3>
+        <br />
         <li className="text-data">
           <span>Username:</span>
           <span>{formValues[0].get("username") as string}</span>

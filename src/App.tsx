@@ -7,7 +7,7 @@ import SubscriptionStep from "./components/subscription";
 import UserConsent from "./components/user-consent";
 
 function App() {
-  const formValues = useRef<FormData[]>(Array(5));
+  const formValues = useRef<FormData[]>([]);
   const [isFormValid, setIsFormValid] = useState(false);
   const [index, setIndex] = useState(0);
 
@@ -26,11 +26,11 @@ function App() {
     if (e.currentTarget.form !== null) {
       formData = new FormData(e.currentTarget.form);
 
-      formValues.current[index] = formData;
+      formValues.current.push(formData);
 
       if (index !== 5) {
         setIndex(index + 1);
-        setIsFormValid(false);
+        if (index !== 4) setIsFormValid(false);
       }
     }
   };
@@ -49,19 +49,15 @@ function App() {
           [
             <LoginStep
               onValidityChange={(isValid: boolean) => setIsFormValid(isValid)}
-              defaultValues={formValues.current[0]}
             />,
             <SubscriptionStep
               onValidityChange={(isValid: boolean) => setIsFormValid(isValid)}
-              defaultValues={formValues.current[1]}
             />,
             <PersonalInfo
               onValidityChange={(isValid: boolean) => setIsFormValid(isValid)}
-              defaultValues={formValues.current[2]}
             />,
             <CreditCard
               onValidityChange={(isValid: boolean) => setIsFormValid(isValid)}
-              defaultValues={formValues.current[3]}
             />,
             <UserConsent
               getUserData={() => ({
@@ -69,50 +65,26 @@ function App() {
                 email: formValues.current[2].get("email") as string,
               })}
               onValidityChange={(isValid: boolean) => setIsFormValid(isValid)}
-              defaultValues={formValues.current[4]}
             />,
             <DataReview formValues={formValues.current} />,
           ][index]
         }
         <div className="nav-steps-bar">
-          <button type="button" className="button-text">
-            Reset
+          <button
+            form={formIds[index]}
+            type="button"
+            className="button-primary"
+            disabled={!isFormValid}
+            onClick={handleNextStepClick}
+          >
+            {index === 5 ? "Submit" : "Next step"}{" "}
+            <img
+              alt="Chevron right"
+              src="chevron-right.png"
+              height={16}
+              width={16}
+            />
           </button>
-          <div style={{ display: "flex", gap: "0.3rem" }}>
-            <button
-              type="button"
-              className="button-text"
-              disabled={index === 0}
-              onClick={() => {
-                if (index !== 0) setIndex(index - 1);
-              }}
-            >
-              <img
-                alt="Chevron left"
-                src="chevron-left.png"
-                height={16}
-                width={16}
-                style={{ textAlign: "center" }}
-              />{" "}
-              Previous step
-            </button>
-            <button
-              form={formIds[index]}
-              type="button"
-              className="button-primary"
-              /* disabled={!isFormValid} */
-              disabled={false}
-              onClick={handleNextStepClick}
-            >
-              {index === 5 ? "Submit" : "Next step"}{" "}
-              <img
-                alt="Chevron right"
-                src="chevron-right.png"
-                height={16}
-                width={16}
-              />
-            </button>
-          </div>
         </div>
       </div>
     </div>

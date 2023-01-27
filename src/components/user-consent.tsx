@@ -3,11 +3,9 @@ import { useState } from "react";
 export default function UserConsent({
   getUserData,
   onValidityChange: setFormValidity,
-  defaultValues,
 }: {
   getUserData: () => { username: string; email: string };
   onValidityChange: (inValid: boolean) => void;
-  defaultValues: undefined | FormData;
 }) {
   const [cookieChecked, setCookieChecked] = useState(false);
   const [personalDataChecked, setPersonalDataChecked] = useState(false);
@@ -37,15 +35,9 @@ export default function UserConsent({
               name="personal-data"
               type="checkbox"
               style={{ marginRight: "1rem" }}
-              defaultChecked={
-                defaultValues
-                  ? defaultValues.get("personal-data") === "on"
-                  : false
-              }
               onChange={(e) => {
                 setCookieChecked(e.target.checked);
                 setFormValidity(e.target.checked && personalDataChecked);
-                console.log(e.target.value);
               }}
             />
             <label htmlFor="personal-data">
@@ -57,9 +49,6 @@ export default function UserConsent({
               id="cookie"
               name="cookie"
               type="checkbox"
-              defaultChecked={
-                defaultValues ? defaultValues.get("cookie") === "on" : false
-              }
               onChange={(e) => {
                 setPersonalDataChecked(e.target.checked);
                 setFormValidity(e.target.checked && cookieChecked);

@@ -3,13 +3,10 @@ import { useState } from "react";
 
 export default function CreditCard({
   onValidityChange: setFormValidity,
-  defaultValues,
 }: {
   onValidityChange: (inValid: boolean) => void;
-  defaultValues: undefined | FormData;
 }) {
   const [cardNumber, setCardNumber] = useState({
-    value: defaultValues ? (defaultValues.get("card-number") as string) : "",
     valid: false,
     untouched: true,
   });
@@ -21,7 +18,6 @@ export default function CreditCard({
         <div id="card-field">
           <Cleave
             name="card-number"
-            value={cardNumber.value}
             className={
               cardNumber.untouched || cardNumber.valid
                 ? "cleave valid-input"
@@ -35,7 +31,6 @@ export default function CreditCard({
                 ...cardNumber,
                 valid:
                   e.target.validity.valid && e.target.rawValue.length === 16,
-                value: e.target.value,
               });
               setFormValidity(
                 e.target.validity.valid && e.target.rawValue.length === 16

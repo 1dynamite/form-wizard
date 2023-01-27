@@ -1,23 +1,19 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 export default function LoginStep({
   onValidityChange: setFormValidity,
-  defaultValues,
 }: {
   onValidityChange: (inValid: boolean) => void;
-  defaultValues: undefined | FormData;
 }) {
   const [username, setUsername] = useState({ valid: false, untouched: true });
   const [password, setPassword] = useState({
     valid: false,
-    value: defaultValues ? (defaultValues.get("password") as string) : "",
+    value: "",
     untouched: true,
   });
   const [confirmPassword, setConfirmPassword] = useState({
     valid: false,
-    value: defaultValues
-      ? (defaultValues.get("confirm-password") as string)
-      : "",
+    value: "",
     untouched: true,
   });
 
@@ -74,9 +70,6 @@ export default function LoginStep({
               type="text"
               id="username"
               name="username"
-              defaultValue={
-                defaultValues ? (defaultValues.get("username") as string) : ""
-              }
               required
               pattern="^[^A-Z]*$"
               className={

@@ -21,24 +21,18 @@ const getMaxDate = (() => {
 
 export default function PersonalInfo({
   onValidityChange: setFormValidity,
-  defaultValues,
 }: {
   onValidityChange: (inValid: boolean) => void;
-  defaultValues: undefined | FormData;
 }) {
   const [firstName, setFirstName] = useState({ valid: false, untouched: true });
   const [lastName, setLastName] = useState({ valid: false, untouched: true });
-  const [birthDate, setBirthDate] = useState(
-    defaultValues ? (defaultValues.get("birthdate") as string) : ""
-  );
+  const [birthDate, setBirthDate] = useState("");
   const [email, setEmail] = useState({ valid: false, untouched: true });
   const [gender, setGender] = useState({ valid: false, untouched: true });
   const [age, setAge] = useState({
     valid: false,
     untouched: true,
-    checked:
-      birthDate !== "" ||
-      (defaultValues ? (defaultValues.get("age") as string) === "on" : false),
+    checked: false,
   });
 
   return (
@@ -52,9 +46,6 @@ export default function PersonalInfo({
               type="text"
               id="first-name"
               name="first-name"
-              defaultValue={
-                defaultValues ? (defaultValues.get("first-name") as string) : ""
-              }
               required
               className={
                 firstName.untouched || firstName.valid ? "" : "invalid-input"
@@ -96,9 +87,6 @@ export default function PersonalInfo({
               type="text"
               id="last-name"
               name="last-name"
-              defaultValue={
-                defaultValues ? (defaultValues.get("last-name") as string) : ""
-              }
               required
               className={
                 lastName.untouched || lastName.valid ? "" : "invalid-input"
@@ -136,16 +124,7 @@ export default function PersonalInfo({
         <li className="text-input">
           <label htmlFor="middle-name">Middle name:</label>
           <div>
-            <input
-              type="text"
-              id="middle-name"
-              name="middle-name"
-              defaultValue={
-                defaultValues
-                  ? (defaultValues.get("middle-name") as string)
-                  : ""
-              }
-            />
+            <input type="text" id="middle-name" name="middle-name" />
           </div>
         </li>
         <br />
@@ -183,9 +162,6 @@ export default function PersonalInfo({
               type="email"
               id="email"
               name="email"
-              defaultValue={
-                defaultValues ? (defaultValues.get("email") as string) : ""
-              }
               required
               className={email.untouched || email.valid ? "" : "invalid-input"}
               onChange={(e) => {
@@ -224,9 +200,6 @@ export default function PersonalInfo({
             <select
               id="gender"
               name="gender"
-              defaultValue={
-                defaultValues ? (defaultValues.get("gender") as string) : ""
-              }
               required
               className={
                 gender.untouched || gender.valid ? "" : "invalid-input"
